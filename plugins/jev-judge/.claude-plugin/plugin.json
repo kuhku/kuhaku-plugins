@@ -1,0 +1,9 @@
+{
+  "name": "jev-judge",
+  "version": "0.1.0",
+  "description": "Annotates Claude Code's AskUserQuestion dialog with TypeSafe Jev's probabilities and a recommended option (labels in Japanese).",
+  "author": { "name": "kuhku" },
+  "license": "MIT",
+  "repository": "https://github.com/kuhku/kuhaku-plugins",
+  "types": "./types/index.d.ts"
+}
