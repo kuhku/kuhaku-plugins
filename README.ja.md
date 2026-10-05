@@ -116,8 +116,9 @@ claude plugin validate plugins/jev-judge
 claude plugin test plugins/jev-judge
 ```
 
-手元の変更を試すときは、clone したフォルダを marketplace として追加します（`/plugin marketplace add <path>`）。
-Claude Code はそのフォルダから直接読み込むので、編集は `/reload-plugins` で反映されます。
+手元の変更を試すときは、clone したフォルダを marketplace として追加し、そこからインストールします（`/plugin marketplace add <path>`）。
+インストールしたプラグインはバージョンごとの複製から動くので、変更したら `plugin.json` と `.claude-plugin/marketplace.json` の
+`version` を両方上げてコミットし、`claude plugin update <plugin>@kuhaku-plugins` と `/reload-plugins` を実行します（Desktop アプリも同じです）。
 
 <br>
 

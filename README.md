@@ -120,8 +120,10 @@ claude plugin validate plugins/jev-judge
 claude plugin test plugins/jev-judge
 ```
 
-To try local changes, add your clone as a marketplace (`/plugin marketplace add <path>`); Claude Code then
-reads the plugin from that folder, and `/reload-plugins` picks up edits.
+To try local changes, add your clone as a marketplace (`/plugin marketplace add <path>`) and install from it.
+An installed plugin runs from a copy keyed by its version, so after a change bump `version` in both
+`plugin.json` and `.claude-plugin/marketplace.json`, commit, then run `claude plugin update <plugin>@kuhaku-plugins`
+and `/reload-plugins` (the desktop app needs this too).
 
 <br>
 
