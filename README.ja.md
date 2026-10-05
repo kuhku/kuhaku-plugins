@@ -47,20 +47,15 @@ Claude Code の中で次を実行します。
 Claude が `AskUserQuestion` で質問してきたとき、ここまでの会話にどの選択肢が合うかを
 [TypeSafe](https://typesafe.ai) の **Jev** に聞き、その答えをダイアログそのものに書き添えます。
 
-```text
- ←  ☐ 英訳モデル   ☐ 表示の追加   ✓ Submit  →
+<p align="center">
+  <img src="docs/images/jev-judge-single.png" alt="単一選択の質問での jev-judge" width="100%"><br>
+  <sub>単一選択: 選択肢ごとの確率と推奨、ダイアログ直下のまとめの 1 行</sub>
+</p>
 
- jev-judge の英訳と文脈要約は、どれにしますか？
-
- ❯ 1. fork のまま
-      【Jev 45%】 会話の文脈まで英語で要約できるので ...
-   2. Haiku で英訳だけ
-      【Jev 2%】 質問と選択肢だけを英訳する ...
-   3. Haiku + 直近の発言
-      【Jev 53%・推奨】 直近の数発言を Haiku に渡して ...
-
-                      jev-judge: Jev 推奨: 英訳モデル「Haiku + 直近の発言」53%（確信度 0.30）
-```
+<p align="center">
+  <img src="docs/images/jev-judge-multi.png" alt="複数選択の質問での jev-judge" width="100%"><br>
+  <sub>複数選択: 選択肢ごとの「選ぶべき確率」</sub>
+</p>
 
 - **選択肢ごとに** — 説明の先頭に Jev の確率を付け、一番高いものに `推奨` の印を付けます。
 - **ダイアログの直下に 1 行** — 推奨と確信度をまとめて出します。

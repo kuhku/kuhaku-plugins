@@ -47,20 +47,15 @@ Inside Claude Code:
 When Claude asks you something with `AskUserQuestion`, jev-judge asks [TypeSafe](https://typesafe.ai)'s
 **Jev** model which option fits the conversation so far, and writes the answer onto the dialog itself.
 
-```text
- ←  ☐ Model   ☐ Display   ✓ Submit  →
+<p align="center">
+  <img src="docs/images/jev-judge-single.png" alt="jev-judge on a single-select question" width="100%"><br>
+  <sub>Single-select: probability per option, recommendation, and the summary line below the dialog.</sub>
+</p>
 
- Which model should translate the question for Jev?
-
- ❯ 1. Keep fork
-      【Jev 45%】 Summarizes the whole conversation in English ...
-   2. Haiku, translation only
-      【Jev 2%】 Translates the question and options only ...
-   3. Haiku + recent messages
-      【Jev 53%・推奨】 Passes the last few messages to Haiku ...
-
-                      jev-judge: Jev 推奨: Model「Haiku + recent messages」53%（確信度 0.30）
-```
+<p align="center">
+  <img src="docs/images/jev-judge-multi.png" alt="jev-judge on a multi-select question" width="100%"><br>
+  <sub>Multi-select: probability of being worth selecting, per option.</sub>
+</p>
 
 - **Per option** — each description starts with Jev's probability; the top one is marked `推奨` (recommended).
 - **One line below the dialog** — a summary with Jev's confidence.
