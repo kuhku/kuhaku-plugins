@@ -23,7 +23,7 @@ they add a little context where you need it and otherwise keep out of the way.
 
 | | Plugin | Kind | What it does |
 |---|---|---|---|
-| 01 | [**jev-judge**](#jev-judge) | mod | Writes TypeSafe Jev's judgment onto Claude's `AskUserQuestion` dialog |
+| 01 | [**jev-judge**](#jev-judge) | mod + skill | Writes TypeSafe Jev's judgment onto Claude's `AskUserQuestion` dialog, and lets you ask Jev directly with `/jev-judge:jev` |
 
 More plugins (skills, mods and other tools) will be added over time.
 
@@ -64,6 +64,13 @@ When Claude asks you something with `AskUserQuestion`, jev-judge asks [TypeSafe]
   Option labels are untouched, so your answer is exactly what you pick.
 
 The labels on screen are in Japanese.
+
+### Skill: `/jev-judge:jev`
+
+Ask Jev about any decision in the conversation: "Jev に聞いて", "jev で判定して" or `/jev-judge:jev`.
+Claude picks the decision and its options, writes the question in English (Choice, Noul or Score), sends it with the
+bundled `scripts/ask-jev.sh`, and reports the probabilities and confidence back in Japanese, keeping its own view
+separate from Jev's.
 
 ### How it works
 

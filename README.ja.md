@@ -23,7 +23,7 @@
 
 | | プラグイン | 種類 | できること |
 |---|---|---|---|
-| 01 | [**jev-judge**](#jev-judge) | mod | Claude の `AskUserQuestion` ダイアログに、TypeSafe Jev の判定を書き添える |
+| 01 | [**jev-judge**](#jev-judge) | mod + スキル | Claude の `AskUserQuestion` ダイアログに TypeSafe Jev の判定を書き添え、`/jev-judge:jev` で Jev に直接聞くこともできる |
 
 スキル・mod などは、これから順に足していきます。
 
@@ -62,6 +62,12 @@ Claude が `AskUserQuestion` で質問してきたとき、ここまでの会話
 - **複数選択にも対応** — 選択肢ごとに「選ぶべき確率」を出します（`【Jev 選ぶ 65%】`）。
 - **邪魔をしない** — ダイアログはすぐに開き、判定は数秒遅れて付きます。
   選択肢の label は変えないので、回答の値は選んだものそのままです。
+
+### スキル: `/jev-judge:jev`
+
+会話の中の決めごとを Jev に聞くスキルです。「Jev に聞いて」「jev で判定して」や `/jev-judge:jev` で使えます。
+Claude が決めたいことと選択肢を拾い、英語の質問（Choice / Noul / Score）にして同梱の `scripts/ask-jev.sh` で送り、
+確率と確信度を日本語で報告します。Claude 自身の見立ては、Jev の結果と分けて書きます。
 
 ### 仕組み
 
