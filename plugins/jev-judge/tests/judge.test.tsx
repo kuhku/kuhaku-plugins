@@ -108,7 +108,7 @@ test('API キーが無ければ失敗を出し、ダイアログはそのまま�
     'Jev 判定に失敗: API キーがありません（/plugin configure jev-judge@kuhaku-plugins で設定）',
   )
   expect(sent.toasts).toEqual([
-    'jev-judge: Jev 判定に失敗: API キーがありません（/plugin configure jev-judge@kuhaku-plugins で設定）',
+    'Jev 判定に失敗: API キーがありません（/plugin configure jev-judge@kuhaku-plugins で設定）',
   ])
   const drawn = await drawnQuestions($, sent)
   expect(drawn).toEqual(QUESTIONS)

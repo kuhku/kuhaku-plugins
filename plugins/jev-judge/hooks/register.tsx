@@ -178,7 +178,7 @@ export const register: Register = (on, options) => {
         await setVerdict({ status: 'error', message })
         notice(`Jev 判定に失敗: ${message}`)
         // ダイアログ直下の行を描かない画面もあるので、トーストでも知らせる
-        $.ui.toast(`jev-judge: Jev 判定に失敗: ${message}`)
+        $.ui.toast(`Jev 判定に失敗: ${message}`)
       }
     }
 

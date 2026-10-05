@@ -1,6 +1,6 @@
 {
   "name": "jev-judge",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Annotates Claude Code's AskUserQuestion dialog with TypeSafe Jev's probabilities and a recommended option (labels in Japanese).",
   "author": {
     "name": "kuhku"
