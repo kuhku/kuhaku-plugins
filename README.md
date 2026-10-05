@@ -91,7 +91,7 @@ AskUserQuestion ──> fork of the current session ──> TypeSafe API (Jev) �
 | | |
 |---|---|
 | Claude Code | A build with the function-hooks plugin API. Built and tested on **2.1.289**. The API is early access and may change between releases. |
-| TypeSafe API key | Set `TYPESAFE_API_KEY` in the environment Claude Code starts from (for example, your shell profile). Without it, the line below the dialog says the key is missing and the dialog is left as is. |
+| TypeSafe API key | Enter it when the plugin is enabled, or later with `/plugin configure jev-judge@kuhaku-plugins`. It is kept in secure storage and works in both the terminal and the desktop app. If it is empty, the `TYPESAFE_API_KEY` environment variable is used (the desktop app does not read your shell profile). Without a key, a toast and the line below the dialog say so, and the dialog is left as is. |
 
 ### Related: the TypeSafe skills
 

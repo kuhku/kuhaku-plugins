@@ -87,7 +87,7 @@ AskUserQuestion ──> 今のセッションの fork ──> TypeSafe API（Jev
 | | |
 |---|---|
 | Claude Code | function hooks のプラグイン API に対応したもの。**2.1.289** で作成・確認しています。API は early access で、リリースの間で変わることがあります。 |
-| TypeSafe の API キー | Claude Code を起動する環境（シェルの設定ファイルなど）に `TYPESAFE_API_KEY` を設定します。無いときは、ダイアログ直下にキーが無いと出し、ダイアログはそのまま表示します。 |
+| TypeSafe の API キー | プラグインを有効にするときか、あとから `/plugin configure jev-judge@kuhaku-plugins` で入れます。キーチェーンなどの安全な保存先に置かれ、ターミナルでも Desktop アプリでも使えます。空のときは環境変数 `TYPESAFE_API_KEY` を読みます（Desktop アプリはシェルの設定ファイルを読みません）。キーが無いときや判定に失敗したときは、トーストとダイアログ直下の行で知らせ、ダイアログはそのまま表示します。 |
 
 ### 関連: TypeSafe のスキル
 

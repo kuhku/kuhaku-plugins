@@ -2,8 +2,19 @@
   "name": "jev-judge",
   "version": "0.1.0",
   "description": "Annotates Claude Code's AskUserQuestion dialog with TypeSafe Jev's probabilities and a recommended option (labels in Japanese).",
-  "author": { "name": "kuhku" },
+  "author": {
+    "name": "kuhku"
+  },
   "license": "MIT",
   "repository": "https://github.com/kuhku/kuhaku-plugins",
-  "types": "./types/index.d.ts"
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "api_key": {
+      "type": "string",
+      "title": "TypeSafe API key",
+      "description": "Used to call Jev. Stored in secure storage. Falls back to the TYPESAFE_API_KEY environment variable when empty.",
+      "sensitive": true,
+      "default": ""
+    }
+  }
 }

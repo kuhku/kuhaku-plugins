@@ -5,6 +5,7 @@ import type { QuestionVerdict, Verdict } from '../types'
 
 const JEV_URL = 'https://api.typesafe.ai/v1/systemone'
 const KEEP = 20
+const NO_KEY = 'API キーがありません（/plugin configure jev-judge@kuhaku-plugins で設定）'
 
 const verdicts = atom({ plugin: 'jev-judge', key: 'verdicts' } as const, {})
 
@@ -126,7 +127,9 @@ const annotate = (questions: AskQuestion[], result: QuestionVerdict[]): AskQuest
     }
   })
 
-export const register: Register = on => {
+export const register: Register = (on, options) => {
+  const configuredKey = typeof options.api_key === 'string' ? options.api_key : ''
+
   on('tool.call', { tool: 'AskUserQuestion' }, ($, e, next) => {
     const id = e.tool_use_id
     const questions = e.questions as AskQuestion[]
@@ -147,8 +150,9 @@ export const register: Register = on => {
       await setVerdict({ status: 'pending' })
       notice('Jev 判定中…')
       try {
-        const key = await $.env.get('TYPESAFE_API_KEY')
-        if (!key) throw new Error('TYPESAFE_API_KEY が未設定です')
+        // Desktop アプリはシェルの設定を読まないので、設定（キーチェーン）を優先する
+        const key = configuredKey || (await $.env.get('TYPESAFE_API_KEY'))
+        if (!key) throw new Error(NO_KEY)
 
         const forked = await $.model.fork({ prompt: forkPrompt(questions) })
         if (!forked.isAnswered) throw new Error(`英訳に失敗しました（${forked.reason}）`)
@@ -173,6 +177,8 @@ export const register: Register = on => {
         const message = err instanceof Error ? err.message : String(err)
         await setVerdict({ status: 'error', message })
         notice(`Jev 判定に失敗: ${message}`)
+        // ダイアログ直下の行を描かない画面もあるので、トーストでも知らせる
+        $.ui.toast(`jev-judge: Jev 判定に失敗: ${message}`)
       }
     }
 

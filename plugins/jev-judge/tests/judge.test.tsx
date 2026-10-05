@@ -27,19 +27,28 @@ const USAGE = { input_tokens: 1, output_tokens: 1, cache_read_input_tokens: 0, c
 
 /** エンジンの代わり: fork・Jev API・notice を受け、ダイアログは判定が出るまで開いたままにする。 */
 const standIn = (on: On, jevBody: unknown) => {
-  const sent: { jev?: any; notices: string[]; id: string; drawn?: any } = { notices: [], id: '' }
+  const sent: { jev?: any; auth?: string; notices: string[]; toasts: string[]; id: string; drawn?: any } = {
+    notices: [],
+    toasts: [],
+    id: '',
+  }
   let settle = () => {}
   const judged = new Promise<void>(resolve => (settle = resolve))
 
   on('model.fork', () => ({ value: { isAnswered: true, text: JSON.stringify(ENGLISH), usage: USAGE } }))
   on('http.fetch', ($, e) => {
     sent.jev = JSON.parse(e.init?.body ?? '{}')
+    sent.auth = e.init?.headers?.Authorization
     return { value: { status: 200, ok: true, headers: {}, text: JSON.stringify(jevBody) } }
   })
   on('ui.notice', ($, e) => {
     sent.id = e.tool_use_id
     if (e.text) sent.notices.push(e.text)
     if (e.text && e.text !== 'Jev 判定中…') settle()
+    return { value: undefined }
+  })
+  on('ui.toast', ($, e) => {
+    sent.toasts.push(e.text)
     return { value: undefined }
   })
   on('tool.call', { tool: 'AskUserQuestion' }, async () => {
@@ -95,7 +104,12 @@ test('API キーが無ければ失敗を出し、ダイアログはそのまま�
 
   await $.tool.call({ tool: 'AskUserQuestion', questions: QUESTIONS })
 
-  expect(sent.notices.at(-1)).toBe('Jev 判定に失敗: TYPESAFE_API_KEY が未設定です')
+  expect(sent.notices.at(-1)).toBe(
+    'Jev 判定に失敗: API キーがありません（/plugin configure jev-judge@kuhaku-plugins で設定）',
+  )
+  expect(sent.toasts).toEqual([
+    'jev-judge: Jev 判定に失敗: API キーがありません（/plugin configure jev-judge@kuhaku-plugins で設定）',
+  ])
   const drawn = await drawnQuestions($, sent)
   expect(drawn).toEqual(QUESTIONS)
 })
@@ -111,4 +125,31 @@ test('複数選択: 選択肢ごとの Noul を「選ぶ ○%」で重ねる', a
 
   expect(sent.jev.questions.q0_o1.type).toBe('noul')
   expect(sent.notices.at(-1)).toBe('Jev 推奨: runbook「対象外にする」')
+})
+
+test('設定の api_key があれば環境変数より優先して使う', { options: { api_key: 'from-config' } }, async ($, on) => {
+  mock.env(on, { TYPESAFE_API_KEY: 'from-env' })
+  const sent = standIn(on, {
+    answers: {
+      q0: { type: 'choice', choice: 'o1', confidence: 0.56, probabilities: { o0: 0.22, o1: 0.78 } },
+    },
+  })
+
+  await $.tool.call({ tool: 'AskUserQuestion', questions: QUESTIONS })
+
+  expect(sent.auth).toBe('Bearer from-config')
+  expect(sent.toasts).toEqual([])
+})
+
+test('設定が無ければ環境変数のキーを使う', async ($, on) => {
+  mock.env(on, { TYPESAFE_API_KEY: 'from-env' })
+  const sent = standIn(on, {
+    answers: {
+      q0: { type: 'choice', choice: 'o1', confidence: 0.56, probabilities: { o0: 0.22, o1: 0.78 } },
+    },
+  })
+
+  await $.tool.call({ tool: 'AskUserQuestion', questions: QUESTIONS })
+
+  expect(sent.auth).toBe('Bearer from-env')
 })
