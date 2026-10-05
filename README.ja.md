@@ -87,7 +87,11 @@ AskUserQuestion ──> 今のセッションの fork ──> TypeSafe API（Jev
 | | |
 |---|---|
 | Claude Code | function hooks のプラグイン API に対応したもの。**2.1.289** で作成・確認しています。API は early access で、リリースの間で変わることがあります。 |
-| TypeSafe の API キー | プラグインを有効にするときか、あとから `/plugin configure jev-judge@kuhaku-plugins` で入れます。キーチェーンなどの安全な保存先に置かれ、ターミナルでも Desktop アプリでも使えます。空のときは環境変数 `TYPESAFE_API_KEY` を読みます（Desktop アプリはシェルの設定ファイルを読みません）。キーが無いときや判定に失敗したときは、トーストとダイアログ直下の行で知らせ、ダイアログはそのまま表示します。 |
+| TypeSafe の API キー | ターミナルで、プラグインを有効にするときか、あとから `/plugin configure jev-judge@kuhaku-plugins` で入れます。キーチェーンなどの安全な保存先に置かれます。空のときは環境変数 `TYPESAFE_API_KEY` を読みます。キーが無いときや判定に失敗したときは、トーストとダイアログ直下の行で知らせ、ダイアログはそのまま表示します。 |
+| ターミナル | 対応しています。 |
+
+> [!NOTE]
+> **現状では Desktop アプリでは動作しません。** 2.1.289 の Desktop アプリには `/plugin configure` の入力画面がなく、ターミナルで保存したキーもプラグインに届かないため、質問のたびに「API キーがありません」のトーストが出ます。
 
 ### 関連: TypeSafe のスキル
 
@@ -118,7 +122,7 @@ claude plugin test plugins/jev-judge
 
 手元の変更を試すときは、clone したフォルダを marketplace として追加し、そこからインストールします（`/plugin marketplace add <path>`）。
 インストールしたプラグインはバージョンごとの複製から動くので、変更したら `plugin.json` と `.claude-plugin/marketplace.json` の
-`version` を両方上げてコミットし、`claude plugin update <plugin>@kuhaku-plugins` と `/reload-plugins` を実行します（Desktop アプリも同じです）。
+`version` を両方上げてコミットし、`claude plugin update <plugin>@kuhaku-plugins` と `/reload-plugins` を実行します。
 
 <br>
 
