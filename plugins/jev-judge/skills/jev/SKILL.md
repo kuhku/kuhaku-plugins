@@ -1,6 +1,6 @@
 ---
 name: jev
-description: Ask TypeSafe's Jev model for a quick, calibrated judgment on a decision — which option fits, whether a condition holds, or how strongly something applies — by sending the question in English and reporting the result in Japanese. Use this whenever the user says "Jev に聞いて", "jev で判定", "Jev ならどれ？", "/jev", or asks for a second opinion with probabilities on choices that came up in the conversation (options from AskUserQuestion, naming candidates, licenses, design alternatives, scope decisions), even if they do not name the API. Not for open-ended writing or explanations: Jev returns probabilities, not reasons.
+description: Ask TypeSafe's Jev model for a quick, calibrated judgment on a decision — which option fits, whether a condition holds, or how strongly something applies — by sending the question in English and reporting the result in Japanese. Use this whenever the user says "Jev に聞いて", "jevにきいて", "jev で判定", "jevならどれ？", "jev に投げて", "/jev" (any casing, with or without spaces, kanji or hiragana), or asks for a second opinion with probabilities on choices that came up in the conversation (options from AskUserQuestion, naming candidates, licenses, design alternatives, scope decisions), even if they do not name the API. Not for open-ended writing or explanations: Jev returns probabilities, not reasons.
 ---
 
 # Jev に判定してもらう
