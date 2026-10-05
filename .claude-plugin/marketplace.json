@@ -7,7 +7,7 @@
     {
       "name": "jev-judge",
       "description": "Annotates the AskUserQuestion dialog with TypeSafe Jev's probabilities and a recommended option.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "author": { "name": "kuhku" },
       "source": "./plugins/jev-judge",
       "category": "productivity",
