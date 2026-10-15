@@ -39,7 +39,7 @@ Jev（TypeSafe の System One モデル）は、文章を生成せず、型付�
 
 ```json
 {
-  "model": "jev-latest",
+  "model": "jev-1.14.0",
   "state": {
     "goal": "...",
     "constraints": ["..."],

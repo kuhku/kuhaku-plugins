@@ -83,6 +83,7 @@ test('単一選択: 英語で Jev に聞き、日本語で確率と推奨を重�
 
   await $.tool.call({ tool: 'AskUserQuestion', questions: QUESTIONS })
 
+  expect(sent.jev.model).toBe('jev-1.14.0')
   expect(sent.jev.state.context).toBe(ENGLISH.context)
   expect(sent.jev.questions.q0.criteria).toEqual({
     o0: 'Keep: verify the boundary',

@@ -4,6 +4,8 @@ import type { Register } from 'claude-code'
 import type { QuestionVerdict, Verdict } from '../types'
 
 const JEV_URL = 'https://api.typesafe.ai/v1/systemone'
+// 別名（jev-latest）は動くと答えが変わるので、版を固定する
+const JEV_MODEL = 'jev-1.14.0'
 const KEEP = 20
 const NO_KEY = 'API キーがありません（/plugin configure jev-judge@kuhaku-plugins で設定）'
 
@@ -162,7 +164,7 @@ export const register: Register = (on, options) => {
           method: 'POST',
           headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: 'jev-latest',
+            model: JEV_MODEL,
             state: { context: en.context },
             questions: jevQuestions(en, questions),
           }),
